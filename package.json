@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "product:save": "node src/save.js"
+    "product:save": "node src/save.js",
+    "product:purchase": "node src/purchase.js"
   },
   "author": "",
   "license": "ISC",

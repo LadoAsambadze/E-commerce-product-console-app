@@ -12,15 +12,19 @@ async function main() {
   try {
     data = JSON.parse(await fs.readFile("ecommerce.json"));
   } catch (error) {
-    data = [];
+    data = {};
   }
 
-  const index = data.findIndex((item) => item.name === response.name);
+  if (data.products === undefined) {
+    data.products = [];
+  }
+
+  const index = data.products.findIndex((item) => item.name === response.name);
   if (index !== -1) {
-    data[index].price = response.price;
-    data[index].id = response.price;
+    data.products[index].price = response.price;
+    data.products[index].id = response.id;
   } else {
-    data.push({
+    data.products.push({
       name: response.name,
       price: response.price,
       id: response.id,
