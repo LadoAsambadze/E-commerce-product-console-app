@@ -6,7 +6,11 @@
   "type": "module",
   "scripts": {
     "product:save": "node src/save.js",
-    "product:purchase": "node src/purchase.js"
+    "product:purchase": "node src/purchase.js",
+    "product:order": "node src/order.js",
+    "product:get-quantity": "node src/get-quantity.js",
+    "product:avarage": "node src/avarage.js"
+    
   },
   "author": "",
   "license": "ISC",

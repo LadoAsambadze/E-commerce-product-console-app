@@ -2,12 +2,11 @@ import { Schema, model } from "mongoose";
 
 const purchaseSchema = new Schema({
   quantity: {
-    type: Schema.Types.String,
+    type: Schema.Types.Number,
     required: true,
   },
   price: {
-    type: Schema.Types.String,
-    required: true,
+    type: Schema.Types.Number,
   },
   productId: {
     type: Schema.Types.String,

@@ -10,20 +10,18 @@ async function main() {
     { type: "text", name: "id", message: "Please enter product ID" },
   ]);
 
-  const existingProducts = await Product.find({});
+  const existingProduct = await Product.findOne({ id: response.id });
 
-  const index = existingProducts.findIndex((item) => item.id === response.id);
-  if (index !== -1) {
-    existingProducts[index].price = response.price;
-    existingProducts[index].name = response.name;
-    await existingProducts[index].save();
+  if (existingProduct) {
+    existingProduct.price = response.price;
+    existingProduct.name = response.name;
+    await existingProduct.save();
   } else {
-    const newProduct = new Product({
+    await Product.create({
       name: response.name,
       price: response.price,
       id: response.id,
     });
-    await newProduct.save();
   }
   console.log("Product saved to MongoDB!");
 }
