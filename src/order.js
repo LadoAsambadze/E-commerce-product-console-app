@@ -18,23 +18,25 @@ async function main() {
       required: true,
       message: "Please enter product productId",
     },
+    {
+      type: "text",
+      name: "price",
+      required: true,
+      message: "Please enter product Price",
+    },
   ]);
 
   const existingPurchase = await Purchase.findOne({
     productId: response.productId,
   });
-  const existingOrder = await Order.findOne({
-    productId: response.productId,
-  });
 
-  if (existingOrder) {
-    existingOrder.quantity = response.quantity;
-    existingOrder.productId = response.productId;
-  } else if (existingPurchase) {
+  if (existingPurchase) {
     await Order.create({
       quantity: response.quantity,
       productId: response.productId,
+      price: response.price,
     });
+    console.log("Done");
   } else {
     console.log("Product does not exist");
   }

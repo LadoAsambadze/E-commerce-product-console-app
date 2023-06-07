@@ -17,11 +17,12 @@ async function main() {
   const quantities = purchases.map((purchase) => purchase.quantity);
   const totalPrices = purchases.map(({ price, quantity }) => price * quantity);
 
+  const sumAmount = quantities.reduce((acc, quantity) => acc + quantity, 0);
+  const sumPrice = totalPrices.reduce((acc, price) => acc + price, 0);
+  const purchaseAvarage = sumPrice / sumAmount;
+
   if (checkId) {
-    const sumAmount = quantities.reduce((acc, quantity) => acc + quantity, 0);
-    const sumPrice = totalPrices.reduce((acc, price) => acc + price, 0);
-    const answer = sumPrice / sumAmount;
-    console.log(answer);
+    console.log(purchaseAvarage);
   }
 }
 

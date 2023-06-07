@@ -16,14 +16,15 @@ async function main() {
     existingProduct.price = response.price;
     existingProduct.name = response.name;
     await existingProduct.save();
+    console.log("Product updated on MongoDB!");
   } else {
     await Product.create({
       name: response.name,
       price: response.price,
       id: response.id,
     });
+    console.log("Product saved to MongoDB!");
   }
-  console.log("Product saved to MongoDB!");
 }
 
 main();

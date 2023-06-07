@@ -9,8 +9,9 @@
     "product:purchase": "node src/purchase.js",
     "product:order": "node src/order.js",
     "product:get-quantity": "node src/get-quantity.js",
-    "product:avarage": "node src/avarage.js"
-    
+    "product:avarage": "node src/avarage.js",
+    "product:profit": "node src/profit.js",
+    "product:popular": "node src/popular.js"
   },
   "author": "",
   "license": "ISC",

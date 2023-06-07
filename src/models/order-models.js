@@ -2,11 +2,15 @@ import { Schema, model } from "mongoose";
 
 const orderSchema = new Schema({
   quantity: {
-    type: Schema.Types.String,
+    type: Schema.Types.Number,
     required: true,
   },
   productId: {
     type: Schema.Types.String,
+    required: true,
+  },
+  price: {
+    type: Schema.Types.Number,
     required: true,
   },
 });
