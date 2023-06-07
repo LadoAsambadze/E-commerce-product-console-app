@@ -1,6 +1,8 @@
-import fs from "fs/promises";
 import prompts from "prompts";
-
+import connect from "./database/mongo.js";
+import Purchase from "./models/purchase-model.js";
+import Product from "./models/product-model.js";
+connect();
 async function main() {
   const response = await prompts([
     {
@@ -20,38 +22,25 @@ async function main() {
     },
   ]);
 
-  let data;
+  const existingProducts = await Product.find({});
 
-  try {
-    data = JSON.parse(await fs.readFile("ecommerce.json"));
-  } catch (error) {
-    data = {};
-  }
+  const existingPurchase = await Purchase.find({});
+  console.log(existingPurchase);
+  const index = existingProducts.findIndex(
+    (product) => product.id === response.productId
+  );
 
-  if (data.purchase === undefined) {
-    data.purchase = [];
-  }
-
-  if (data.products.some((products) => products.id === response.productId)) {
-    const index = data.purchase.findIndex(
-      (item) => item.productId === response.productId
-    );
-
-    if (index !== -1) {
-      data.purchase[index].quantity = response.quantity;
-      data.purchase[index].price = response.price;
-    } else {
-      data.purchase.push({
-        quantity: response.quantity,
-        price: response.price,
-        productId: response.productId,
-      });
-    }
+  if (index !== -1) {
+    const newPurchase = new Purchase({
+      quantity: response.quantity,
+      price: response.price,
+      productId: response.productId,
+    });
+    await newPurchase.save();
+    console.log("Product saved to MongoDB!");
   } else {
-    console.log("Invalid productId");
+    console.log("Product ID does not exist");
   }
-
-  await fs.writeFile("ecommerce.json", JSON.stringify(data));
 }
 
 main();

@@ -1,36 +1,31 @@
-import fs from "fs/promises";
 import prompts from "prompts";
+import connect from "./database/mongo.js";
+import Product from "./models/product-model.js";
+connect();
 
 async function main() {
   const response = await prompts([
     { type: "text", name: "name", message: "Please enter product name" },
     { type: "text", name: "price", message: "Please enter product price" },
-    { type: "text", name: "id", message: "Please enter product name" },
+    { type: "text", name: "id", message: "Please enter product ID" },
   ]);
 
-  let data;
-  try {
-    data = JSON.parse(await fs.readFile("ecommerce.json"));
-  } catch (error) {
-    data = {};
-  }
+  const existingProducts = await Product.find({});
 
-  if (data.products === undefined) {
-    data.products = [];
-  }
-
-  const index = data.products.findIndex((item) => item.name === response.name);
+  const index = existingProducts.findIndex((item) => item.id === response.id);
   if (index !== -1) {
-    data.products[index].price = response.price;
-    data.products[index].id = response.id;
+    existingProducts[index].price = response.price;
+    existingProducts[index].name = response.name;
+    await existingProducts[index].save();
   } else {
-    data.products.push({
+    const newProduct = new Product({
       name: response.name,
       price: response.price,
       id: response.id,
     });
+    await newProduct.save();
   }
-  await fs.writeFile("ecommerce.json", JSON.stringify(data));
+  console.log("Product saved to MongoDB!");
 }
 
 main();
