@@ -24,13 +24,22 @@ async function main() {
   const existingPurchase = await Purchase.findOne({
     productId: response.productId,
   });
+  const lastProduct = await Purchase.find({
+    productId: response.productId,
+    quantity: { $gt: 0 },
+  });
+  const lastItem = lastProduct.pop();
 
-  if (existingPurchase && existingPurchase.quantity >= response.quantity) {
+  if (existingPurchase && lastItem.quantity >= response.quantity) {
     await Order.create({
       quantity: response.quantity,
       productId: response.productId,
-      price: existingPurchase.price,
+      price: lastItem.price,
     });
+    const answer = lastItem.quantity - response.quantity;
+
+    lastItem.quantity = answer;
+    await lastItem.save();
     console.log("Done");
   } else {
     console.log("Product does not exist");

@@ -30,12 +30,12 @@ async function main() {
       price: response.price,
       productId: response.productId,
     });
+   
     console.log("Purchase saved to MongoDB!");
   } else {
     console.log("Product ID does not exist");
   }
   process.exit();
-  
 }
 
 main();
