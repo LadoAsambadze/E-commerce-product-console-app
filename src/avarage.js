@@ -13,12 +13,13 @@ async function main() {
   ]);
 
   const checkId = await Purchase.find({ productId: response.productId });
-  const purchases = await Purchase.find({});
+  const purchases = await Purchase.find({ productId: response.productId });
   const quantities = purchases.map((purchase) => purchase.quantity);
   const totalPrices = purchases.map(({ price, quantity }) => price * quantity);
 
   const sumAmount = quantities.reduce((acc, quantity) => acc + quantity, 0);
   const sumPrice = totalPrices.reduce((acc, price) => acc + price, 0);
+
   const purchaseAvarage = sumPrice / sumAmount;
 
   if (checkId) {

@@ -13,7 +13,7 @@ async function main() {
   const maxCount = most[0].count;
 
   console.log(`ID "${maxId}" repeats ${maxCount} times.`);
-  return maxId;
+  process.exit();
 }
 
 main();
