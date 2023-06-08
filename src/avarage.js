@@ -24,6 +24,7 @@ async function main() {
   if (checkId) {
     console.log(purchaseAvarage);
   }
+  process.exit();
 }
 
 main();

@@ -2,6 +2,7 @@ import Purchase from "./models/purchase-model.js";
 import prompts from "prompts";
 import connect from "./database/mongo.js";
 import Order from "./models/order-models.js";
+import Product from "./models/product-model.js";
 connect();
 
 async function main() {
@@ -18,28 +19,24 @@ async function main() {
       required: true,
       message: "Please enter product productId",
     },
-    {
-      type: "text",
-      name: "price",
-      required: true,
-      message: "Please enter product Price",
-    },
   ]);
 
   const existingPurchase = await Purchase.findOne({
     productId: response.productId,
   });
 
-  if (existingPurchase) {
+  if (existingPurchase && existingPurchase.quantity >= response.quantity) {
     await Order.create({
       quantity: response.quantity,
       productId: response.productId,
-      price: response.price,
+      price: existingPurchase.price,
     });
     console.log("Done");
   } else {
     console.log("Product does not exist");
   }
+
+  process.exit();
 }
 
 main();

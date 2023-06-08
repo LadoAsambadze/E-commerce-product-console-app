@@ -25,6 +25,7 @@ async function main() {
     });
     console.log("Product saved to MongoDB!");
   }
+  process.exit();
 }
 
 main();

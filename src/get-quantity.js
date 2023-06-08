@@ -18,5 +18,6 @@ async function main() {
   } else {
     console.log("No purchase with this productId");
   }
+  process.exit();
 }
 main();

@@ -14,6 +14,7 @@ async function main() {
 
   console.log(`ID "${maxId}" repeats ${maxCount} times.`);
   return maxId;
+  process.exit();
 }
 
 main();

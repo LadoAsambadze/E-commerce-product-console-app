@@ -36,6 +36,7 @@ async function main() {
     const profit = purchaseAvarage - orderAvarage;
     console.log(profit);
   }
+  process.exit();
 }
 
 main();

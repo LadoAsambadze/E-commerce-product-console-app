@@ -34,6 +34,7 @@ async function main() {
   } else {
     console.log("Product ID does not exist");
   }
+  process.exit();
   
 }
 
