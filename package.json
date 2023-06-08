@@ -11,6 +11,7 @@
     "product:get-quantity": "node src/get-quantity.js",
     "product:avarage": "node src/avarage.js",
     "product:profit": "node src/profit.js",
+    "product:fewest": "node src/fewest.js",
     "product:popular": "node src/popular.js"
   },
   "author": "",
