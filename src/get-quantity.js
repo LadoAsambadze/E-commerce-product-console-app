@@ -11,10 +11,12 @@ async function main() {
       message: "Please enter productId",
     },
   ]);
-  const existing = await Purchase.findOne({ productId: response.productId });
+  const existing = await Purchase.find({ productId: response.productId });
+  const existingQuantity = existing.map((item) => item.quantity);
+  const sum = existingQuantity.reduce((acc, quantity) => acc + quantity, 0);
 
   if (existing) {
-    console.log(existing.quantity);
+    console.log(sum);
   } else {
     console.log("No purchase with this productId");
   }
