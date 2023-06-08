@@ -24,16 +24,8 @@ async function main() {
   const sumPrice = totalPrices.reduce((acc, price) => acc + price, 0);
   const orderAvarage = sumPrice / sumAmount;
 
-  const purchases = await Purchase.find({});
-  const quantities2 = purchases.map((purchase) => purchase.quantity);
-  const totalPrices2 = purchases.map(({ price, quantity }) => price * quantity);
-
-  const sumAmount2 = quantities2.reduce((acc, quantity) => acc + quantity, 0);
-  const sumPrice2 = totalPrices2.reduce((acc, price) => acc + price, 0);
-  const purchaseAvarage = sumPrice2 / sumAmount2;
-
-  if (checkId && checkId2) {
-    const profit = purchaseAvarage - orderAvarage;
+  if (checkId2) {
+    const profit = orderAvarage;
     console.log(profit);
   }
   process.exit();
